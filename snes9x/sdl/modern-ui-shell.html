@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Snes9X</title>
   <head>
@@ -10,6 +11,7 @@
         height: 100%;
         font-size: 18px;
         overflow: hidden;
+        padding: 0px;
       }
 
       #menu {
@@ -42,6 +44,21 @@
         background-color: rgba(0,0,0,0.7);
         z-index: 5900;
         display: none;
+      }
+
+      #init-splash {
+        position: relative;
+        z-index: 10000;
+        top: 250px;
+      }
+
+      #status {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        color: white;
+        text-shadow: 1px 1px 2px #777;
       }
 
       .modal-content {
@@ -139,6 +156,7 @@
         padding-right: 10px;
         overflow-y: scroll;
         box-shadow: 0 4px 2px -2px #999;
+        background-color: white;
       }
 
       #hamburgler {
@@ -222,7 +240,7 @@
         width: 42px;
         height: 40px;
         box-shadow: 1px 1px 10px #999;
-        padding-bottom: 3px;
+        padding-bottom: 2px;
       }
 
       .large-round-bttn {
@@ -231,8 +249,8 @@
         vertical-align: middle;
         font-size: 72px;
         text-align: center;
-        width: 90px;
-        padding-bottom: 10px;
+        width: 85px;
+        padding-bottom: 5px;
         height: 80px;
         box-shadow: 3px 3px 20px #999;
       }
@@ -364,17 +382,96 @@
        * Based on Google's Material Design breakpoints.
        */
 
-      /* mobile   e.g. nexus5/iphone6 */
-      @media all and (min-width: 0px) and (max-width: 600px) (orientation: portrait) {
-        BODY {
-          background-color: blue;
+      /* mobile portrait */
+      @media all and (min-width: 0px) and (max-width: 600px) and (orientation: portrait) {
+        #menu {
+          left: -320px;
+          width: 300px;
+          z-index: 6005;
+          box-shadow: 4px 0px 2px -2px #000;
+        }
+
+        #init-splash {
+          top: 30px;
+        }
+
+        #menu-title {
+          display: block;
+        }
+
+        #hamburgler {
+          display: block;
+        }
+
+        #main-content {
+          position: initial;
+          width: 100%;
+          height: 100%;
+          margin-left: auto;
+          margin-right: auto;
+          background-color: #CCC;
+          padding-top: 10%;
+        }
+
+        #content-title {
+          display: none;
+        }
+
+        #game-canvas {
+          width: 280px;
+          height: 210px;
+        }
+
+        #canvas-wrapper {
+          margin-left: auto;
+          margin-right: auto;
+          background-color: white;
+          width: 290px;
+          height: 220px;
+          box-shadow: none;
+        }
+
+        #content-title {
+          border: none;
+          padding-left: 50px;
+        }
+
+        #load-file {
+          bottom: 30px;
+          left: auto;
+          top: auto;
+          right: 25px;
+          box-shadow: none;
+        }
+
+        #controls-row {
+          display: none;
+        }
+
+        #console-output {
+          position: absolute;
+          top: 15%;
+          left: -2%;
+          color: white;
+          background-color: transparent;
+          border: none;
+          box-shadow: none;
+          text-shadow: 1px 1px 2px #777;
         }
       }
 
-      /* mobile landscape*/
+      /* mobile landscape */
       @media all and (min-width: 0px) and (max-width: 960px) and (orientation: landscape) {
-        BODY {
-          background-color: black;
+        #main-content {
+          background-color: #CCC;
+        }
+
+        .row span {
+          padding-left: 5px;
+        }
+
+        #init-splash {
+          top: 75px;
         }
 
         #game-canvas {
@@ -403,8 +500,6 @@
 
         #hamburgler {
           display: block;
-          background: no-repeat center/150% url("../snes9x/icons/burger3.png");
-          border: none;
         }
 
         #canvas-wrapper {
@@ -418,9 +513,14 @@
         }
 
         #console-output {
-          width: 410;
-          margin-left: auto;
-          margin-right: auto;
+          position: absolute;
+          top: 15%;
+          left: 10%;
+          color: white;
+          background-color: transparent;
+          border: none;
+          box-shadow: none;
+          text-shadow: 1px 1px 2px #777;
         }
 
         #main-content {
@@ -431,20 +531,28 @@
         }
 
         #load-file {
-          top: auto;
+          top: 25px;
           left: auto;
-          right: 30px;
-          bottom: 25px;
+          right: 40px;
+          /*bottom: 25px;*/
+        }
+
+        #controls-row {
+          display: none;
         }
       }
 
-      /* tablet   e.g. ipad/ipad pro */
+      /* tablet portrait  e.g. ipad/ipad pro, seemingly most mobile phones */
       @media all and (min-width: 601px) and (max-width: 1000px) and (orientation : portrait) {
         #menu {
           left: -320px;
           width: 300px;
           z-index: 6005;
           box-shadow: 4px 0px 2px -2px #000;
+        }
+
+        #init-splash {
+          top: 130px;
         }
 
         #menu-title {
@@ -469,32 +577,45 @@
         }
 
         #canvas-wrapper {
-          position: initial;
           width: 620px;
           height: 470px;
+          margin-left: auto;
+          margin-right: auto;
         }
 
         #console-output {
-          width: 620;
+          width: 602px;
           margin-left: auto;
           margin-right: auto;
         }
 
         #content-title {
           border: none;
-          margin-left: 50px;
+          padding-left: 50px;
         }
 
         #load-file {
           top: auto;
+          bottom: 10%;
           left: auto;
-          right: 30%;
-          bottom: 30%;
+          right: 13%;
+        }
+
+        #controls-row {
+          display: none;
         }
       }
 
       /* tablet landscape */
       @media all and (min-width: 961px) and (max-width: 1281px) and (orientation: landscape) {
+        BODY {
+          background-color: white;
+        }
+
+        #init-splash {
+          top: 160px;
+        }
+
         #menu {
           left: -320px;
           width: 300px;
@@ -519,8 +640,6 @@
           position: initial;
           width: 100%;
           height: 100%;
-          margin-left: auto;
-          margin-right: auto;
         }
 
         #content-title {
@@ -536,7 +655,7 @@
         }
 
         #console-output {
-          width: 620px;
+          width: 602px;
           margin-left: auto;
           margin-right: auto;
         }
@@ -547,59 +666,54 @@
           right: 3%;
           bottom: 5%;
         }
+
+        #controls-row {
+          display: none;
+        }
+
+        #about-closer {
+          top: 30%;
+          left: 85%;
+        }
       }
     </style>
   <body>
-    <progress value="0" max="100" id="progress" hidden=1></progress>
-    <figure style="overflow:visible;" id="spinner"><div class="spinner"></div><center style="margin-top:0.5em"><strong>emscripten</strong></center></figure>
-    <div class="emscripten" id="status">Downloading...</div>
     <div id="keymap-div" class="modal-content">
+      <h3>Pad #1</h3>
       <table border="1">
         <tr>
           <td>Right:</td>
+          <td><input type="text" class="keymap-input" data-keycode="0"></td>
+          <td>A:</td>
           <td><input type="text" class="keymap-input" data-keycode="0"></td>
         </tr>
         <tr>
           <td>Left:</td>
           <td><input type="text" class="keymap-input" data-keycode="0"></td>
+          <td>B:</td>
+          <td><input type="text" class="keymap-input" data-keycode="0"></td>
         </tr>
         <tr>
           <td>Down:</td>
+          <td><input type="text" class="keymap-input" data-keycode="0"></td>
+          <td>X:</td>
           <td><input type="text" class="keymap-input" data-keycode="0"></td>
         </tr>
         <tr>
           <td>Up:</td>
           <td><input type="text" class="keymap-input" data-keycode="0"></td>
+          <td>Y:</td>
+          <td><input type="text" class="keymap-input" data-keycode="0"></td>
         </tr>
         <tr>
           <td>Select:</td>
+          <td><input type="text" class="keymap-input" data-keycode="0"></td>
+          <td>L:</td>
           <td><input type="text" class="keymap-input" data-keycode="0"></td>
         </tr>
         <tr>
           <td>Start:</td>
           <td><input type="text" class="keymap-input" data-keycode="0"></td>
-        </tr>
-        <tr>
-          <td>A:</td>
-          <td><input type="text" class="keymap-input" data-keycode="0"></td>
-        </tr>
-        <tr>
-          <td>B:</td>
-          <td><input type="text" class="keymap-input" data-keycode="0"></td>
-        </tr>
-        <tr>
-          <td>X:</td>
-          <td><input type="text" class="keymap-input" data-keycode="0"></td>
-        </tr>
-        <tr>
-          <td>Y:</td>
-          <td><input type="text" class="keymap-input" data-keycode="0"></td>
-        </tr>
-        <tr>
-          <td>L:</td>
-          <td><input type="text" class="keymap-input" data-keycode="0"></td>
-        </tr>
-        <tr>
           <td>R:</td>
           <td><input type="text" class="keymap-input" data-keycode="0"></td>
         </tr>
@@ -626,7 +740,7 @@
     <div id="hamburgler"></div>
     <div id="menu">
       <div class="row" id="menu-title">
-        <span style="margin-left: 5%;"><span style="color:blue;">S</span><span style="color:red;">n</span><span style="color:green;">e</span><span style="color:yellow;">s</span><span style="color:#666;">9x</span> <span style="color:#555;">Emulator</span>
+        <span style="margin-left: 5%;"><span style="color:blue;">S</span><span style="color:red;">n</span><span style="color:green;">e</span><span style="color:yellow;">s</span><span style="color:#666;">9x</span> <span style="color:#CCC;">Emulator</span>
       </div>
       <div class="row">
         <label>Frameskip</label>
@@ -668,7 +782,7 @@
           <div class="slider-toggle round"></div>
         </label>
       </div>
-      <div class="row">
+      <div class="row" id="controls-row">
         <span id="control-mappings">Controls</span>
       </div>
       <div class="row">
@@ -679,12 +793,18 @@
       <div id="content-title">
         <span style="margin-left: 5%;"><span style="color:blue;">S</span><span style="color:red;">n</span><span style="color:green;">e</span><span style="color:yellow;">s</span><span style="color:#666;">9x</span> <span style="text-shadow:none;color:#079af1;">Super Nintendo Emulator</span></span>
       </div>
+      <!-- <div id="content-title">Foobar</div> -->
       <div id="canvas-wrapper">
+        <div id="init-splash">
+          <progress value="0" max="100" id="progress" hidden=1></progress>
+          <figure style="overflow:visible;" id="spinner"><div class="spinner"></div><center style="margin-top:0.5em"><strong>Loading Snes9x...</strong></center></figure>
+          <div id="status">Downloading...</div>
+        </div>
         <canvas id="game-canvas" oncontextmenu="event.preventDefault()"></canvas>
       </div>
       <label for="file-selector" class="large-round-bttn bttn-color" id="load-file">+</label>
       <input type="file" id="file-selector">
-      <textarea id="console-output"></textarea>
+      <div id="console-output"></div>
     </div>
     <script>
       // test for canvas and webgl support
@@ -1034,10 +1154,10 @@
         postRun: [],
         print: (function() {
           var element = document.getElementById('console-output');
-          element.value = ''; // clear browser cache
+          element.innerHTML = ''; // clear browser cache
           return function(text) {
             var txt = arguments.length > 1 ? [].slice.call(arguments).join(' ') : text;
-            element.value += txt + "\n";
+            element.innerHTML += txt + "<br>";
             element.scrollTop = element.scrollHeight; // focus on bottom
           };
         })(),
@@ -1089,13 +1209,10 @@
       };
 
       Module.setStatus('Downloading...');
-      window.onerror = function() {
-        Module.setStatus('Exception thrown, see JavaScript console');
-        spinnerElement.style.display = 'none';
-        Module.setStatus = function(text) {
-          if (text) Module.printErr('[post-exception status] ' + text);
-        };
-      };
+      // window.onerror = function(evt, source, line, col, err) {
+      //   spinnerElement.style.display = 'none';
+      //   cout_print(err.toString())
+      // };
 
       // Wires up the event handlers, called from compiled c code to give file
       // system a chance to sync.
@@ -1122,6 +1239,8 @@
             menu.classList.remove('menu-animation-in');
             menu.classList.add('menu-animation-out');
             hide(modal);
+            hide(aboutDiv);
+            hide(controlMapDiv);
           }
         };
 
@@ -1286,6 +1405,7 @@
         })());
 
         controlMapDiv.addEventListener('click', function() {
+          hideMenu();
           show(modal);
           show(mapDiv);
         });
