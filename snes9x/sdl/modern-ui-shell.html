@@ -14,6 +14,40 @@
         padding: 0px;
       }
 
+      #x-backer {
+        top: -160px;
+        left: 103px;
+      }
+
+      #y-backer {
+        top: -90px;
+        left: -63px;
+      }
+
+      #a-backer {
+        top: -80px;
+        left: 7px;
+      }
+
+      #b-backer {
+        top: -92px;
+        left: 90px;
+      }
+
+      .gamepad-bttn-container {
+        width: 270px;
+        height: 270px;
+        background-color: rgba(150, 150, 150, 0.5);
+        border-radius: 50%;
+        z-index: 9999;
+      }
+
+      #xyab-container {
+        position: absolute;
+        top: 300px;
+        left: 300px;
+      }
+
       #menu {
         width: 25%;
         min-width: 300px;
@@ -203,6 +237,26 @@
         box-shadow: 3px 3px 20px #999;
       }
 
+      .bttn-container {
+        background-color: rgba(100, 100, 100, 0.5);
+        border-radius: 50px;
+        width: 200px;
+        height: 90px;
+        transform: rotate(-40deg);
+        position: relative;
+        z-index: 10000;
+      }
+
+      #xy-container {
+        top: 50px;
+        left: 0px;
+      }
+
+      #ab-container {
+        left: 70px;
+        top: 38px;
+      }
+
       .closer {
         color: white;
         background-color: #f70474;
@@ -255,9 +309,54 @@
         box-shadow: 3px 3px 20px #999;
       }
 
-      .bttn-color {
+      .main-bttn {
         background-color: #079af1;
         color: white;
+      }
+
+      .gamepad-bttn {
+        border-radius: 50%;
+        display: inline-block;
+        text-align: center;
+        font-size: 35px;
+        width: 66px;
+        height: 54px;
+        box-shadow: 1px 1px 10px #999;
+        color: white;
+        padding-top: 12px;
+        text-shadow: 1px 1px 2px #777;
+      }
+
+      .x-bttn {
+        background: linear-gradient(#66b8e8, blue);
+      }
+
+      .y-bttn {
+        background: linear-gradient(#00ff01, green);
+      }
+
+      .a-bttn {
+        background: linear-gradient(#f19d9d, red);
+      }
+
+      .b-bttn {
+        background: linear-gradient(#f9f9e4, yellow);
+      }
+
+      .gamepad-bttn-backer {
+        background: linear-gradient(#ccc, #666);
+        border-radius: 50%;
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 35px;
+        width: 78px;
+        height: 71px;
+        box-shadow: 1px 1px 10px #999;
+        padding-bottom: 2px;
+        padding-top: 6px;
+        position: relative;
+        z-index: 10002;
       }
 
       .not-implemented {
@@ -678,6 +777,25 @@
       }
     </style>
   <body>
+    <div id="xyab-container" class="gamepad-bttn-container">
+      <div id="xy-container" class="bttn-container"></div>
+      <div id="ab-container" class="bttn-container"></div>
+      <div class="gamepad-bttn-backer" id="x-backer">
+        <div class="gamepad-bttn x-bttn" id="x-bttn">X</div>
+      </div>
+      <div class="gamepad-bttn-backer" id="y-backer">
+        <div class="gamepad-bttn y-bttn" id="y-bttn">Y</div>
+      </div>
+      <div class="gamepad-bttn-backer" id="a-backer">
+        <div class="gamepad-bttn a-bttn" id="a-bttn">A</div>
+      </div>
+      <div class="gamepad-bttn-backer" id="b-backer">
+        <div class="gamepad-bttn b-bttn" id="b-bttn">B</div>
+      </div>
+    </div>
+    <div id="dpad-container" class="gamepad-bttn-container">
+
+    </div>
     <div id="keymap-div" class="modal-content">
       <h3>Pad #1</h3>
       <table border="1">
@@ -720,7 +838,7 @@
       </table>
       <div id="keymap-bttns">
         <div class="rctngl-bttn closer" id="cancel-keymap">CANCEL</div>
-        <div class="rctngl-bttn bttn-color" id="save-keymap">SAVE</div>
+        <div class="rctngl-bttn main-bttn" id="save-keymap">SAVE</div>
       </div>
     </div>
     <div id="about-div" class="modal-content">
@@ -744,10 +862,10 @@
       </div>
       <div class="row">
         <label>Frameskip</label>
-        <div class="small-round-bttn linear bttn-color right-align vert-center-bttn" id="fskip-plus">
+        <div class="small-round-bttn linear main-bttn right-align vert-center-bttn" id="fskip-plus">
           <span>+</span>
         </div>
-        <div class="small-round-bttn linear bttn-color right-align vert-center-bttn" id="fskip-minus">
+        <div class="small-round-bttn linear main-bttn right-align vert-center-bttn" id="fskip-minus">
           <span>&#8722;</span>
         </div>
         <div class="small-round-bttn linear right-align vert-center-bttn" style="box-shadow:none;">
@@ -802,7 +920,7 @@
         </div>
         <canvas id="game-canvas" oncontextmenu="event.preventDefault()"></canvas>
       </div>
-      <label for="file-selector" class="large-round-bttn bttn-color" id="load-file">+</label>
+      <label for="file-selector" class="large-round-bttn main-bttn" id="load-file">+</label>
       <input type="file" id="file-selector">
       <div id="console-output"></div>
     </div>
