@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Snes9X</title>
   <head>
@@ -12,6 +12,135 @@
         font-size: 18px;
         overflow: hidden;
         padding: 0px;
+      }
+
+      .triangle {
+        width: 0;
+        height: 0;
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+        border-bottom: 40px solid white;
+        margin-top: 15px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .small-triangle {
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 15px solid rgba(255,255,255,0.3);
+        margin-top: 15px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .triangle-hit-box {
+        width: 85px;
+        height: 85px;
+        border: solid 1px transparent;
+      }
+
+      #up {
+        position: relative;
+        z-index: 10005;
+        top: -12px;
+        left: -13px;
+      }
+
+      #down {
+        position: relative;
+        z-index: 10005;
+        left: -13px;
+        top: 72px;
+        transform: rotate(180deg);
+      }
+
+      #left {
+        position: relative;
+        z-index: 10005;
+        left: -12px;
+        top: -13px;
+        transform: rotate(-90deg);
+      }
+
+      #right {
+        position: relative;
+        z-index: 10005;
+        left: 160px;
+        top: -102px;
+        transform: rotate(90deg);
+      }
+
+      #upleft {
+        position: relative;
+        z-index: 10004;
+        left: 25px;
+        top: 15px;
+        transform: rotate(-45deg);
+      }
+
+      #upright {
+        position: relative;
+        z-index: 10004;
+        left: 160px;
+        top: -158px;
+        transform: rotate(45deg);
+      }
+
+      #downleft {
+        position: relative;
+        z-index: 10004;
+        left: 25px;
+        top: 80px;
+        transform: rotate(-135deg);
+      }
+
+      #downright {
+        position: relative;
+        z-index: 10004;
+        left: 160px;
+        top: -94px;
+        transform: rotate(135deg);
+      }
+
+      #updown {
+        width: 60px;
+        height: 235px;
+        /*background-color: rgba(100, 100, 100, 0.5);*/
+        background-color: #999;
+        position: relative;
+        top: -328px;
+        left: 106px;
+        z-index: 9001;
+      }
+
+      #leftright {
+        width: 235px;
+        height: 60px;
+        background-color: rgba(100, 100, 100, 0.5);
+        background-color: #999;
+        position: relative;
+        top: -477px;
+        left: 18px;
+        z-index: 9001;
+      }
+
+      .half-on-left {
+        background: linear-gradient(90deg, white, #999 60%);
+      }
+
+      .half-on-right {
+        background: linear-gradient(270deg, white, #999 60%);
+      }
+
+      .half-on-up {
+        background: linear-gradient(to bottom, white, #999 60%);
+      }
+
+      .half-on-down {
+        background: linear-gradient(to top, white, #999 60%);
       }
 
       #x-backer {
@@ -43,6 +172,12 @@
       }
 
       #xyab-container {
+        position: absolute;
+        top: 300px;
+        left: 700px;
+      }
+
+      #dpad-container {
         position: absolute;
         top: 300px;
         left: 300px;
@@ -654,6 +789,18 @@
           top: 130px;
         }
 
+        #dpad-container {
+          display: block;
+          top: 615px;
+          left: 40px;
+        }
+
+        #xyab-container {
+          display: block;
+          top: 615px;
+          left: 475px;
+        }
+
         #menu-title {
           display: block;
         }
@@ -794,7 +941,34 @@
       </div>
     </div>
     <div id="dpad-container" class="gamepad-bttn-container">
-
+      <div class="triangle-hit-box" id="upleft">
+        <div class="small-triangle"></div>
+      </div>
+      <div class="triangle-hit-box" id="downleft">
+        <div class="small-triangle"></div>
+      </div>
+      <div class="triangle-hit-box" id="upright">
+        <div class="small-triangle"></div>
+      </div>
+      <div class="triangle-hit-box" id="downright">
+        <div class="small-triangle"></div>
+      </div>
+      <div id="updown">
+        <div class="triangle-hit-box" id="up">
+          <div class="triangle"></div>
+        </div>
+        <div class="triangle-hit-box" id="down">
+          <div class="triangle"></div>
+        </div>
+      </div>
+      <div id="leftright">
+        <div class="triangle-hit-box" id="left">
+          <div class="triangle"></div>
+        </div>
+        <div class="triangle-hit-box" id="right">
+          <div class="triangle"></div>
+        </div>
+      </div>
     </div>
     <div id="keymap-div" class="modal-content">
       <h3>Pad #1</h3>
@@ -1349,6 +1523,20 @@
         var outputToggle = document.getElementById('output-toggle');
         var controlMapDiv = document.getElementById('control-mappings');
         var mapDiv = document.getElementById('keymap-div');
+        var upArrow = document.getElementById('up');
+        var downArrow = document.getElementById('down');
+        var leftArrow = document.getElementById('left');
+        var rightArrow = document.getElementById('right');
+        var upRightArrow = document.getElementById('upright');
+        var upRightArrowTriangle = upRightArrow.querySelector('.small-triangle');
+        var upLeftArrow = document.getElementById('upleft');
+        var upLeftArrowTriangle = upLeftArrow.querySelector('.small-triangle');
+        var downRightArrow = document.getElementById('downright');
+        var downRightArrowTriangle = downRightArrow.querySelector('.small-triangle');
+        var downLeftArrow = document.getElementById('downleft');
+        var downLeftArrowTriangle = downLeftArrow.querySelector('.small-triangle');
+        var upDownAxis = document.getElementById('updown');
+        var leftRightAxis = document.getElementById('leftright');
         var cout_print = Module.print;
         var filename = "";
 
@@ -1526,6 +1714,94 @@
           hideMenu();
           show(modal);
           show(mapDiv);
+        });
+
+        upArrow.addEventListener('mouseenter', function() {
+          upDownAxis.style.zIndex = 10001;
+          upDownAxis.classList.add('half-on-up');
+        });
+
+        upArrow.addEventListener('mouseleave', function() {
+          upDownAxis.style.zIndex = 10000;
+          upDownAxis.classList.remove('half-on-up');
+        });
+
+        downArrow.addEventListener('mouseenter', function() {
+          upDownAxis.style.zIndex = 10001;
+          upDownAxis.classList.add('half-on-down');
+        });
+
+        downArrow.addEventListener('mouseleave', function() {
+          upDownAxis.style.zIndex = 10000;
+          upDownAxis.classList.remove('half-on-down');
+        });
+
+        leftArrow.addEventListener('mouseenter', function() {
+          leftRightAxis.style.zIndex = 10001;
+          leftRightAxis.classList.add('half-on-left');
+        });
+
+        rightArrow.addEventListener('mouseenter', function() {
+          leftRightAxis.style.zIndex = 10001;
+          leftRightAxis.classList.add('half-on-right');
+        });
+
+        leftArrow.addEventListener('mouseleave', function() {
+          leftRightAxis.style.zIndex = 10000;
+          leftRightAxis.classList.remove('half-on-left');
+        });
+
+        rightArrow.addEventListener('mouseleave', function() {
+          leftRightAxis.style.zIndex = 10000;
+          leftRightAxis.classList.remove('half-on-right');
+        });
+
+        upRightArrow.addEventListener('mouseenter', function() {
+          upRightArrowTriangle.style.borderLeft = '20px solid transparent';
+          upRightArrowTriangle.style.borderRight = '20px solid transparent';
+          upRightArrowTriangle.style.borderBottom = '25px solid rgba(255,255,255,1)';
+        });
+
+        upRightArrow.addEventListener('mouseleave', function() {
+          upRightArrowTriangle.style.borderLeft = '10px solid transparent';
+          upRightArrowTriangle.style.borderRight = '10px solid transparent';
+          upRightArrowTriangle.style.borderBottom = '15px solid rgba(255,255,255,0.3)';
+        });
+
+        upLeftArrow.addEventListener('mouseenter', function() {
+          upLeftArrowTriangle.style.borderLeft = '20px solid transparent';
+          upLeftArrowTriangle.style.borderRight = '20px solid transparent';
+          upLeftArrowTriangle.style.borderBottom = '25px solid rgba(255,255,255,1)';
+        });
+
+        upLeftArrow.addEventListener('mouseleave', function() {
+          upLeftArrowTriangle.style.borderLeft = '10px solid transparent';
+          upLeftArrowTriangle.style.borderRight = '10px solid transparent';
+          upLeftArrowTriangle.style.borderBottom = '15px solid rgba(255,255,255,0.3)';
+        });
+
+        downRightArrow.addEventListener('mouseenter', function() {
+          downRightArrowTriangle.style.borderLeft = '20px solid transparent';
+          downRightArrowTriangle.style.borderRight = '20px solid transparent';
+          downRightArrowTriangle.style.borderBottom = '25px solid rgba(255,255,255,1)';
+        });
+
+        downRightArrow.addEventListener('mouseleave', function() {
+          downRightArrowTriangle.style.borderLeft = '10px solid transparent';
+          downRightArrowTriangle.style.borderRight = '10px solid transparent';
+          downRightArrowTriangle.style.borderBottom = '15px solid rgba(255,255,255,0.3)';
+        });
+
+        downLeftArrow.addEventListener('mouseenter', function() {
+          downLeftArrowTriangle.style.borderLeft = '20px solid transparent';
+          downLeftArrowTriangle.style.borderRight = '20px solid transparent';
+          downLeftArrowTriangle.style.borderBottom = '25px solid rgba(255,255,255,1)';
+        });
+
+        downLeftArrow.addEventListener('mouseleave', function() {
+          downLeftArrowTriangle.style.borderLeft = '10px solid transparent';
+          downLeftArrowTriangle.style.borderRight = '10px solid transparent';
+          downLeftArrowTriangle.style.borderBottom = '15px solid rgba(255,255,255,0.3)';
         });
 
         document.getElementById('cancel-keymap').addEventListener('click', function() {
