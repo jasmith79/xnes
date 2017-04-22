@@ -460,6 +460,13 @@ void S9xAutoSaveSRAM (void)
 }
 void S9xSyncSpeed (void)
 {
+
+	if (Settings.SoundSync)
+	{
+		while (!S9xSyncSound())
+			usleep(0);
+	}
+
 #ifdef HTML
 	IPPU.RenderThisFrame = (++IPPU.SkippedFrames >= Settings.SkipFrames) ? TRUE : FALSE;
         if (IPPU.RenderThisFrame)
@@ -668,9 +675,12 @@ int main (int argc, char **argv)
 	Settings.MultiPlayer5Master = FALSE;
 	Settings.FrameTimePAL = 20000;
 	Settings.FrameTimeNTSC = 16667;
+
 	Settings.SixteenBitSound = TRUE;
 	Settings.Stereo = TRUE;
-	Settings.SupportHiRes = TRUE;
+	// Settings.SupportHiRes = TRUE;
+	Settings.SupportHiRes = FALSE;
+
 	Settings.Transparency = TRUE;
 	Settings.AutoDisplayMessages = FALSE;
 	Settings.InitialInfoStringTimeout = 120;
@@ -688,11 +698,14 @@ int main (int argc, char **argv)
 	Settings.CartAName[0] = 0;
 	Settings.CartBName[0] = 0;
   Settings.NoPatch= TRUE;
-  Settings.SoundSync =  FALSE;
+  // Settings.SoundSync =  FALSE;
+	Settings.SoundSync = TRUE;
 #ifdef SOUND
 	Settings.Mute = FALSE;
-  Settings.SoundPlaybackRate = 22100;
-	Settings.SoundInputRate = 22100;
+  // Settings.SoundPlaybackRate = 22100;
+	// Settings.SoundInputRate = 22100;
+	Settings.SoundPlaybackRate = 32000;
+	Settings.SoundInputRate = 32000;
 #else
   Settings.Mute = TRUE;
   Settings.SoundPlaybackRate = 16000;
@@ -706,8 +719,8 @@ int main (int argc, char **argv)
 		S9xDeinitAPU();
 		exit(1);
 	}
-    sound_buffer_size= 100;
-	S9xInitSound(sound_buffer_size, 0);
+	sound_buffer_size= 196;
+	S9xInitSound(sound_buffer_size, 100);
 	S9xSetSoundMute(TRUE);
 
 	S9xReportControllers();
