@@ -704,8 +704,8 @@ int main (int argc, char **argv)
 	Settings.Mute = FALSE;
   // Settings.SoundPlaybackRate = 22100;
 	// Settings.SoundInputRate = 22100;
-	Settings.SoundPlaybackRate = 32000;
-	Settings.SoundInputRate = 32000;
+	Settings.SoundPlaybackRate = 31900;
+	Settings.SoundInputRate = 31900;
 #else
   Settings.Mute = TRUE;
   Settings.SoundPlaybackRate = 16000;
