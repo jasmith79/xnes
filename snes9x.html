@@ -1845,6 +1845,30 @@
 
       };
     </script>
-    <script async type="text/javascript" src="snes9x.js"></script>
+    <script>
+      var src = window.WebAssembly ? 'snes9x.js' : null;
+      if (!src) {
+        alert('Your browser does not support WebAssembly. ' +
+          'Some features may be buggy or broken. For best results, ' +
+          'please use latest version of chrome or firefox.');
+        src = 'fallback.js';
+        (function() {
+          var memoryInitializer = 'snes9x.html.mem';
+          if (typeof Module['locateFile'] === 'function') {
+            memoryInitializer = Module['locateFile'](memoryInitializer);
+          } else if (Module['memoryInitializerPrefixURL']) {
+            memoryInitializer = Module['memoryInitializerPrefixURL'] + memoryInitializer;
+          }
+          var meminitXHR = Module['memoryInitializerRequest'] = new XMLHttpRequest();
+          meminitXHR.open('GET', memoryInitializer, true);
+          meminitXHR.responseType = 'arraybuffer';
+          meminitXHR.send(null);
+        })();
+      }
+
+      var scr = document.createElement('script');
+      scr.src = src;
+      document.body.appendChild(scr);
+    </script>
   </body>
 </html>
